@@ -12,9 +12,11 @@ const Logo: FC<LogoProps> = ({  }) => {
     const router = useRouter();
 
   return (
-    <div className=''>
-     <Image alt='logo' src='/images/Logo.png' className=' hidden sm:block cursor-pointer' height='100' width='100' priority/>
-    </div>
+    
+     <Image
+     onClick={()=>router.push('/')}
+     alt='logo' src='/images/Logo.png' className=' hidden sm:block cursor-pointer' height='100' width='100' priority/>
+  
   )
 }
 

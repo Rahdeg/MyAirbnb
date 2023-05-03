@@ -25,7 +25,7 @@ const LoginModal: FC<LoginModalProps> = ({  }) => {
 
     const router = useRouter();
     const loginModal = useLoginModal();
-    const RegisterModal = useRegisterModal();
+    const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false)
   const {register,handleSubmit, formState:{errors,}} = useForm <FieldValues>({
     defaultValues:{
@@ -33,6 +33,11 @@ const LoginModal: FC<LoginModalProps> = ({  }) => {
       password:""
     }
   })
+
+  const toggle = useCallback(()=>{
+    loginModal.onClose()
+    registerModal.onOpen()
+  },[loginModal,registerModal])
 
   const onSubmit : SubmitHandler <FieldValues> =(data) =>{
     setIsLoading(true);
@@ -70,10 +75,10 @@ const LoginModal: FC<LoginModalProps> = ({  }) => {
       <div className=' text-neutral-500 text-center mt-4 font-light'>
       <div className=' flex flex-row items-center  justify-center gap-2'>
         <div>
-        Already have an account?
+        First time using Airbnb?
         </div>
-        <div className=' text-neutral-800 cursor-pointer hover:underline' onClick={loginModal.onClose}>
-       Log in
+        <div className=' text-neutral-800 cursor-pointer hover:underline' onClick={toggle}>
+       Create an account
         </div>
       </div>
       </div>
