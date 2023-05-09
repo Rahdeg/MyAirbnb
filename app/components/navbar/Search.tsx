@@ -1,7 +1,10 @@
 "use client"
 
+import useCountries from '@/app/hooks/useCountry'
 import useSearchModal from '@/app/hooks/useSearchModal'
-import React, { FC } from 'react'
+import { differenceInDays } from 'date-fns'
+import { useSearchParams } from 'next/navigation'
+import React, { FC, useMemo } from 'react'
 import {BiSearch} from 'react-icons/bi'
 
 interface SearchProps {
@@ -10,6 +13,45 @@ interface SearchProps {
 
 const Search: FC<SearchProps> = ({  }) => {
   const searchModal = useSearchModal();
+  const params = useSearchParams();
+  const {getByValue} = useCountries();
+  const locationValue = params?.get('locationValue')
+  const startDate = params?.get('startDate')
+  const endDate = params?.get('endDate')
+  const guestCount = params?.get('guestCount')
+  // const roomCount = params?.get('roomCount')
+  // const bathroomCount = params?.get('bathroomCount')
+
+  const locationLabel = useMemo(()=>{
+    if (locationValue) {
+      return getByValue(locationValue as string)?.label;
+    }
+    return 'Anywhere'
+  },[getByValue,locationValue])
+
+  const durationLabel = useMemo(()=>{
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      let diff = differenceInDays(end,start);
+      
+      if (diff === 0) {
+        diff = 1
+      }
+      return `${diff} Days`
+    }
+
+    return "Any Week"
+  },[endDate,startDate])
+
+  const guestLabel = useMemo(()=>{
+    if (guestCount) {
+      return `${guestCount} Guests`
+    }
+    return 'Add Guests';
+  },[guestCount])
+
+
 
   return (
     <div 
@@ -17,13 +59,13 @@ const Search: FC<SearchProps> = ({  }) => {
     className='border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer'>
     <div className=' flex flex-row justify-between items-center'>
     <div className=' text-sm font-semibold px-6'>
-    Anywhere
+    {locationLabel}
     </div>
     <div className=' hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center'>
-    Anyweek
+    {durationLabel}
     </div>
     <div className=' text-sm pr-2 pl-6 text-gray-600 flex flex-row items-center gap-3'>
-    <div className='hidden sm:block'>Add Guest</div>
+    <div className='hidden sm:block'>{guestLabel}</div>
     <div className='p-2 bg-rose-500 rounded-full text-white' > <BiSearch/></div>
     </div>
     </div>

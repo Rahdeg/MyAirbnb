@@ -1,7 +1,6 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
 import axios from 'axios'
-import {} from 'react-icons/fc'
 import {AiFillGithub} from 'react-icons/ai'
 import {FcGoogle} from 'react-icons/fc'
 import {useCallback, useState} from 'react'
@@ -23,6 +22,7 @@ const RegisterModal: FC<RegisterModalProps> = ({  }) => {
   const registerModel= useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false)
+ 
   const {register,handleSubmit, formState:{errors,}} = useForm <FieldValues>({
     defaultValues:{
       name:'',

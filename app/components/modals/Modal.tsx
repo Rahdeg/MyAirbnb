@@ -1,8 +1,9 @@
 'use client';
 import { cn } from '@/app/lib/utils';
-import React, { FC, useCallback, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
 import {IoMdClose} from 'react-icons/io'
 import Button from '../Button';
+import useOnClickOutside from '@/app/hooks/useClickOutside';
 
 interface ModalProps {
   isOpen?: boolean
@@ -19,6 +20,10 @@ interface ModalProps {
 
 const Modal: FC<ModalProps> = ({isOpen,onClose,onSubmit,title,body,footer,actionLabel,disabled,secondaryAction,secondaryActionLabel}) => {
     const [showModel, setShowModel] = useState(isOpen)
+
+
+   
+
 
     useEffect(() => {
         setShowModel(isOpen)
@@ -46,7 +51,8 @@ const Modal: FC<ModalProps> = ({isOpen,onClose,onSubmit,title,body,footer,action
     
   return (
     <>
-        <div className=' justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70'>
+        <div className=' justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70'
+        >
         <div className=' relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto'>
             {/* content */}
             <div className={cn(' translate duration-300 h-full',{'translate-y-0 opacity-100': showModel, ' translate-y-full opacity-0': !showModel})}>
@@ -54,7 +60,7 @@ const Modal: FC<ModalProps> = ({isOpen,onClose,onSubmit,title,body,footer,action
                 {/* Header */}
                 <div className=' flex items-center p-6 rounded-t justify-center relative border-b-[1px]'>
                     <button className=' p-1 border-0 hover:opacity-70 transition absolute left-9' title='button'
-                   onClick={handleCLose}
+                   onClick={handleCLose} 
                     >
                             <IoMdClose size={18}/>
                     </button>

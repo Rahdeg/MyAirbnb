@@ -53,7 +53,7 @@ const Usermenu: FC<UsermenuProps> = ({ currentUser }) => {
         {
             isOpen && (
                 <div className=' absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
-                    <div className=' flex flex-col cursor-pointer'>
+                    <div className=' flex flex-col cursor-pointer' onClick={toggleOpen}>
                         {
                             currentUser ? ( <>
                             <Menuitems onClick={()=>router.push('/trips')} label='My trips'/>
