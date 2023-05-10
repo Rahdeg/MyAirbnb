@@ -1,40 +1,47 @@
-import EmptyState from '../components/EmptyState'
-import ClientOnly from '../components/ClientOnly'
-import getCurrentUser from '../actions/getCurrentUser'
-import getReservations from '../actions/getRservation'
-import TripsClient from './TripsClient'
 
+import EmptyState from "@/app/components/EmptyState";
+import ClientOnly from "@/app/components/ClientOnly";
 
-interface pageProps {
-  
-}
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import getReservations from "@/app/actions/getReservations";
 
-const TripsPage= async ({  }) => {
-    const currentUser = await  getCurrentUser()
+import TripsClient from "../components/TripsClient";
 
-    if (!currentUser) {
-        return (
-            <ClientOnly>
-                <EmptyState title='Unauthorized' subtitle='Please login'/>
-            </ClientOnly>
-        )
-    }
+const TripsPage = async () => {
+  const currentUser = await getCurrentUser();
 
-    const reservations = await getReservations({userId: currentUser.id});
+  if (!currentUser) {
+    return (
+      <ClientOnly>
+        <EmptyState
+          title="Unauthorized"
+          subtitle="Please login"
+        />
+      </ClientOnly>
+    );
+  }
 
-    if (reservations.length === 0) {
-        return (
-            <ClientOnly>
-                <EmptyState title='No trips found' subtitle='looks like you havent reserved any trips..'/>
-            </ClientOnly>
-        )
-    }
+  const reservations = await getReservations({ userId: currentUser.id });
+
+  if (reservations.length === 0) {
+    return (
+      <ClientOnly>
+        <EmptyState
+          title="No trips found"
+          subtitle="Looks like you havent reserved any trips."
+        />
+      </ClientOnly>
+    );
+  }
 
   return (
-   <ClientOnly>
-    <TripsClient reservations={reservations} currentUser={currentUser}/>
-   </ClientOnly>
-  )
+    <ClientOnly>
+      <TripsClient
+        reservations={reservations}
+        currentUser={currentUser}
+      />
+    </ClientOnly>
+  );
 }
-
+ 
 export default TripsPage;

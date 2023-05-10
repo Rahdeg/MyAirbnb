@@ -1,23 +1,21 @@
-"use client";
-import Image from 'next/image';
-import {useRouter} from 'next/navigation'
-import React, { FC } from 'react'
+'use client';
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-interface LogoProps {
-  
+const Logo = () => {
+  const router = useRouter();
+
+  return ( 
+    <Image
+      onClick={() => router.push('/')}
+      className="hidden md:block cursor-pointer" 
+      src="/images/logo.png" 
+      height="100" 
+      width="100" 
+      alt="Logo" 
+    />
+   );
 }
-
-const Logo: FC<LogoProps> = ({  }) => {
-    const router = useRouter();
-
-  return (
-    
-     <Image
-     onClick={()=>router.push('/')}
-     alt='logo' src='/images/Logo.png' className=' hidden sm:block cursor-pointer' height='100' width='100' priority/>
-  
-  )
-}
-
+ 
 export default Logo;
