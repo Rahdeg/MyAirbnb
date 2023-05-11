@@ -99,7 +99,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             text-sm
           "
         >
-          <div className="flex flex-col cursor-pointer" onClick={toggleOpen}>
+          <div className="flex flex-col cursor-pointer" >
             {currentUser ? (
               <>
                 <MenuItem 
